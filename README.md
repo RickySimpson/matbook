@@ -1,6 +1,18 @@
 # Matbook
 
-A personal training log for Striking, No-Gi BJJ, MMA Fundamentals, Sparring, and Bag Conditioning. Includes optional notes, editable sessions, all-time counts, a training-mix visual, and JSON backup/restore.
+A personal training log for Striking, No-Gi BJJ, MMA Fundamentals, Sparring, and Bag Conditioning. Check in whenever you train, with optional notes. No streaks, weekly quotas, or missed-day penalties.
+
+## Your fightprint
+
+Each session leaves a colored mark in a growing circular pattern. Select a class to highlight its marks and see its count. The visual shows the latest 180 sessions; all totals include your complete history.
+
+## Road to Blue
+
+- Personal attendance keepsakes at 1, 10, 25, 50, and 100 No-Gi BJJ sessions.
+- One saved training focus, based on what you want to work on or your coach suggests.
+- An optional **Save this BJJ note as a small win** checkbox when logging or editing a BJJ session. Recent wins appear on the Road to Blue; older wins remain accessible.
+
+These are personal training memories, not belt requirements or a promotion forecast. Your coach awards your belt. Editing or deleting a session updates the counts, keepsakes, and wins together.
 
 ## Publish on GitHub Pages
 
@@ -21,21 +33,29 @@ Official custom-domain guide: https://docs.github.com/en/pages/configuring-a-cus
 
 ## Storage and privacy
 
-This is the current working version. It stores sessions in the browser's local storage. Cloudflare D1, Google Drive integration, login, and cross-device synchronization have NOT been implemented.
+This version stores sessions, small wins, and your current focus in the browser's local storage. Cloudflare D1, Google Drive integration, login, and cross-device synchronization have NOT been implemented.
 
 The ChatGPT sign-in on the previously hosted version was provided by that hosting service; it is not part of this source. This GitHub Pages version has no built-in login. Your training records are stored locally in your own browser and are not uploaded to GitHub or included in this archive.
 
 Storage is specific to a browser and website address. Before switching from the old site to GitHub Pages, download a backup under **Your data** on the old site. On the new site, use **Your data → Restore backup**. Repeat this transfer if you later move from a GitHub URL to a custom domain. Keep regular backups until shared persistent storage is added.
 
+Existing sessions and version 1 backups are supported. New version 2 backups include your focus and small-win flags. Restore merges entries by ID, keeping existing entries and any current nonempty focus. Older Matbook code cannot read the new storage format: download a version 2 backup before reverting to an older release.
+
 ## Files
 
 - `index.html`: page structure and class choices.
-- `app.js`: check-ins, notes, counts, history, backup and restore.
+- `app.js`: check-ins, notes, counts, focus, wins, history, backup and restore.
+- `model.js`: data validation, legacy migration, counts, backup merging, and Fightprint geometry.
 - `style.css`: base styles.
 - `fighter.css`: fighter theme and responsive layout.
-- `classes.css`: five-class scoreboard and selectors.
+- `classes.css`: five-class selectors and colors.
+- `journey.css`: Fightprint, Road to Blue, and responsive layouts.
 - `barlow-condensed.ttf`, `libre-caslon.ttf`: self-hosted fonts.
 - `BARLOW-LICENSE.txt`, `FONT-LICENSE.txt`: font licenses.
 - `.nojekyll`: serves the site as plain static files.
 
 There are no training records, credentials, or private hosting configuration in this package.
+
+## Data checks
+
+With Node.js installed, run `node tests/model.test.cjs` to check legacy data migration, backup round trips, merge preservation, validation, class counts, and the bounded Fightprint. Node.js is only needed for these checks, not for hosting or using Matbook.
